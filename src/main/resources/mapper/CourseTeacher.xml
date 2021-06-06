@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxun.student_grade_menagement.dao.CourseTeacherDao">
+
+    <insert id="insertMsg" parameterType="com.hanxun.student_grade_menagement.entity.CourseTeacher">
+        INSERT INTO tb_course_teacher (teacher_id,course_id)
+        VALUES (#{teacherId},#{courseId})
+    </insert>
+
+    <delete id="deleteCourseTeacher" parameterType="com.hanxun.student_grade_menagement.entity.CourseTeacher">
+        DELETE FROM tb_course_teacher
+        WHERE course_id=#{courseId}
+        AND teacher_id=#{teacherId}
+    </delete>
+
+    <select id="queryCourseByTeacherId" parameterType="long" resultType="com.hanxun.student_grade_menagement.entity.CourseTeacher">
+        SELECT teacher_id,course_id
+        FROM tb_course_teacher
+        WHERE teacher_id=#{teacherId}
+    </select>
+
+    <select id="queryCourseByCourseId" parameterType="long" resultType="com.hanxun.student_grade_menagement.entity.CourseTeacher">
+        SELECT teacher_id,course_id
+        FROM tb_course_teacher
+        WHERE course_id=#{courseId}
+    </select>
+
+    <select id="queryCourseTeacherByIdAndCourseId" parameterType="com.hanxun.student_grade_menagement.entity.CourseTeacher" resultType="long">
+        SELECT id
+        FROM tb_course_teacher
+        WHERE course_id=#{courseId}
+        AND teacher_id=#{teacherId}
+    </select>
+
+</mapper>

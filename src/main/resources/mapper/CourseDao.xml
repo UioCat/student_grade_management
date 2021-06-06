@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxun.student_grade_menagement.dao.CourseDao">
+
+    <select id="queryCourseBySerialNumber" parameterType="String"
+            resultType="com.hanxun.student_grade_menagement.entity.Course">
+        SELECT *
+        FROM tb_course
+        WHERE serial_number=#{serialNumber}
+    </select>
+
+    <insert id="insertMsg" parameterType="com.hanxun.student_grade_menagement.entity.Course">
+        INSERT INTO tb_course (serial_number,course_name,credit,college_id)
+        VALUES (#{serialNumber},#{courseName},#{credit},#{collegeId})
+    </insert>
+
+    <update id="updateCourseBySerialNumber" parameterType="com.hanxun.student_grade_menagement.entity.Course">
+        UPDATE tb_course
+        <set>
+            <if test="serialNumber!=null">serial_number=#{serialNumber},</if>
+            <if test="courseName!=null">course_name=#{courseName},</if>
+            <if test="credit!=null">credit=#{credit},</if>
+            <if test="collegeId!=null">college_id=#{collegeId}</if>
+        </set>
+        WHERE serial_number=#{serialNumber}
+    </update>
+
+    <delete id="deleteCourseBySerialNumber" parameterType="String">
+        DELETE FROM tb_course
+        WHERE serial_number=#{serialNumber}
+    </delete>
+
+    <select id="queryCourseListByCollegeId" parameterType="String"
+            resultType="com.hanxun.student_grade_menagement.entity.Course">
+        SELECT serial_number,course_name,credit,college_id
+        FROM tb_course
+        WHERE college_id=#{collegeId}
+    </select>
+
+    <select id="queryCourseListByIdList" parameterType="long"
+            resultType="com.hanxun.student_grade_menagement.entity.Course">
+        SELECT *
+        FROM tb_course
+        WHERE id
+        IN
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

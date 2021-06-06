@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanxun.student_grade_menagement.dao.MajorDao">
+
+    <insert id="insertMsg">
+        INSERT INTO tb_major (serial_number,major_name,major_classes,college_id)
+        VALUES (#{serialNumber},#{majorName},#{majorClasses},#{collegeId})
+    </insert>
+
+    <select id="queryListByCollegeId" parameterType="String" resultType="com.hanxun.student_grade_menagement.entity.Major">
+        SELECT serial_number,major_name,major_classes,college_id
+        FROM tb_major
+        WHERE college_id=#{collegeId}
+    </select>
+
+    <delete id="deleteMsgBySerialNumber" parameterType="String">
+        DELETE FROM tb_major
+        WHERE serial_number=#{serialNumber}
+    </delete>
+
+    <update id="updateMsgBySerialNumber" parameterType="com.hanxun.student_grade_menagement.entity.Major">
+        UPDATE tb_major
+        <set>
+            <if test="majorName!=null">major_name=#{majorName},</if>
+            <if test="majorClasses!=null">major_classes=#{majorClasses},</if>
+        </set>
+        WHERE serial_number=#{serialNumber}
+    </update>
+
+    <select id="queryAllBySerialNumber" parameterType="String" resultType="com.hanxun.student_grade_menagement.entity.Major">
+        SELECT *
+        FROM tb_major
+        WHERE serial_number=#{serialNumber}
+    </select>
+</mapper>

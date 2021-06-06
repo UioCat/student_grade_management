@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanxun.student_grade_menagement.dao.CollegeDao">
+
+    <insert id="insertCollege" parameterType="com.hanxun.student_grade_menagement.entity.College">
+        INSERT INTO tb_college (serial_college,college_name,dean,major_id_array)
+        VALUES (#{serialCollege},#{collegeName},#{dean},#{majorIdArray})
+    </insert>
+
+    <delete id="deleteCollege" parameterType="String">
+        DELETE FROM tb_college
+        WHERE serial_college=#{serialCollege}
+    </delete>
+
+    <update id="updateCollege" parameterType="com.hanxun.student_grade_menagement.entity.College">
+        UPDATE tb_college
+        <set>
+            <if test="collegeName!=null">college_name=#{collegeName},</if>
+            <if test="dean!=null">dean=#{dean},</if>
+            <if test="majorIdArray!=null">major_id_array=#{majorIdArray}</if>
+            <if test="courseIdArray!=null">course_id_array=#{courseIdArray}</if>
+        </set>
+        WHERE serial_college=#{serialCollege}
+    </update>
+
+    <select id="queryCollegeList" resultType="com.hanxun.student_grade_menagement.entity.College">
+        SELECT serial_college,college_name,dean
+        FROM tb_college
+    </select>
+
+    <select id="queryCollegeBySerialCollege" parameterType="String"
+            resultType="com.hanxun.student_grade_menagement.entity.College">
+        SELECT *
+        FROM tb_college
+        WHERE serial_college=#{serialCollege}
+    </select>
+
+</mapper>
